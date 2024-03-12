@@ -4,10 +4,9 @@ default:
 
 stages:     
   - build
-  - test
-  - deploy
 
 build-job:
   stage: build
   script:
     - docker build -t 2048-game_image .
+    - docker login -u nick62rus --password $DOCKER_HUB_TOKEN
