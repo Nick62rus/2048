@@ -1,7 +1,13 @@
+image: docker:latest
+services:
+  - docker:dind
 stages:
-  - build
+  - test
 
-build_docker_image:
-  stage: build
+test-build:
+  stage: test
   script:
-    - docker build -t my_image .
+    - echo "Fine!"
+    - docker info
+  tags:
+    - docker
