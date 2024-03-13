@@ -1,12 +1,5 @@
 stages:
-  - test
   - build
-
-test:
-  stage: test
-  script:
-    echo "hello"
-    
 build:
   stage: build
   image:
