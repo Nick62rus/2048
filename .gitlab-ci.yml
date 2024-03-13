@@ -1,4 +1,10 @@
+image: docker:19.03.13
 
+variables:
+    DOCKER_TLS_CERTDIR: "/certs"
+services:
+    -   name: docker:19.03.13-dind
+        alias: docker
 stages:
   - build-docker-image
   
