@@ -1,17 +1,12 @@
-image: docker:latest
-
-variables:
-  DOCKER_TLS_CERTDIR: ""
-  
-services:
-  - docker:dind
 stages:
-  - test
-
-test-build:
-  stage: test
-  script:
-    - echo "Fine!"
-    - docker info
-  tags:
-    - docker
+  - build
+  
+build_image:
+  stage: build
+  image: docker:18.09
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+  services:
+    - docker:18.09-dind
