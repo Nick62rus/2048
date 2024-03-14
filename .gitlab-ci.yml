@@ -1,6 +1,6 @@
 stages:
   - build
-  - publish
+  - deploy
 
 building_dockerfile:
   stage: build
@@ -11,8 +11,8 @@ building_dockerfile:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
     - docker build -t 2048-game .
-  
-  publish_to_dockerhub:
-    stage: publish
-    script:
-      - docker push $DOCKER_USERNAME/2048-game
+    
+deploy_image:
+  stage: deploy
+  script:
+    - docker push $DOCKER_USERNAME/2048-game
