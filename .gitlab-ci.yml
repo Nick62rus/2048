@@ -11,9 +11,11 @@ building_dockerfile:
   before_script:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - docker build -t 2048-game:latest .
+    - docker build -t my-simple-tasks:latest .
     
 deploy_image:
   stage: deploy
+  before_script:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - docker push 2048-game:latest
+    - docker push $DOCKER_USERNAME/my-simple-tasks:latest
