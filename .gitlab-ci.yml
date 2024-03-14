@@ -1,11 +1,18 @@
 stages:
   - build
-build:
+  - publish
+
+building_dockerfile:
   stage: build
   image: docker:stable
   services:
     - docker:dind
+  before_script:
+    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - docker build -t mydockerimage .
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker push $CI_REGISTRY_IMAGE
+    - docker build -t 2048-game .
+  
+  publish_to_dockerhub:
+    stage: publish
+    script:
+      - docker push $DOCKER_USERNAME/2048-game
