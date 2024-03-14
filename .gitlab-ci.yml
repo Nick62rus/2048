@@ -1,12 +1,13 @@
+services:
+  - docker:dind
+image: docker:stable
+
 stages:
   - build
   - deploy
 
 building_dockerfile:
   stage: build
-  image: docker:stable
-  services:
-    - docker:dind
   before_script:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
