@@ -16,4 +16,4 @@ building_dockerfile:
 deploy_image:
   stage: deploy
   script:
-    - docker push $DOCKER_USERNAME/2048-game:latest
+    - docker push 2048-game:latest
