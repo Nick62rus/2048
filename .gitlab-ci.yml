@@ -11,9 +11,9 @@ building_dockerfile:
   before_script:
     - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   script:
-    - docker build -t 2048-game .
+    - docker build -t 2048-game:latest .
     
 deploy_image:
   stage: deploy
   script:
-    - docker push $DOCKER_USERNAME/2048-game
+    - docker push $DOCKER_USERNAME/2048-game:latest
