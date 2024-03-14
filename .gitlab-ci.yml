@@ -9,13 +9,15 @@ stages:
 building_dockerfile:
   stage: build
   before_script:
-    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker build -t my-simple-tasks:latest .
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
     
 deploy_image:
   stage: deploy
   before_script:
-    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker push $DOCKER_USERNAME/my-simple-tasks:latest
+    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
